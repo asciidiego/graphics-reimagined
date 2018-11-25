@@ -1,1 +1,1 @@
-# graphics-reimagined
+# Graphics Reimagined
