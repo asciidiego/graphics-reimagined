@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>RAP Web App</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+  <h1>
+  Realtime Audio Processing Web App
+  </h1>
+  <h2>
+  Version: 0.0.1
+  </h2>
+  <h3>
+  Main:
+  </h3>
+  
+  <div id="mainContainer">
+  </div>
+  
+    <script>
+  d3.select("#mainContainer")
+  .selectAll('div')
+  .exit().remove()
+  .data([4, 8, 15, 16, 23, 42])
+  .enter().append("div")
+  .text(function(d) { return "I’m number " + d + " inside a div!"; });
+  </script>
+</body>
+</html>
