@@ -1,0 +1,81 @@
+#N canvas 560 66 671 488 10;
+#X obj 36 23 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+;
+#X msg 36 43 \; pd dsp \$1;
+#X obj 290 306 *~;
+#X obj 326 175 vsl 15 128 0 1 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#N canvas 0 50 450 250 (subpatch) 0;
+#X array channel 211956 float 2;
+#X coords 0 1 211956 -1 200 140 1 0 0;
+#X restore 460 31 graph;
+#X obj 157 92 soundfiler;
+#X floatatom 175 121 12 0 0 0 - - -, f 12;
+#X obj 157 174 expr 44100 / $f1;
+#X obj 175 146 s sampleSize;
+#X floatatom 177 200 12 0 0 0 - - -, f 12;
+#X obj 157 227 phasor~;
+#X obj 156 264 *~;
+#X obj 195 248 r sampleSize;
+#X obj 158 321 rfft~;
+#X obj 158 347 *~;
+#X obj 186 346 *~;
+#X obj 158 370 +~;
+#X obj 159 394 sqrt~;
+#X obj 75 229 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 111 244 print~;
+#X msg 157 64 read -resize dillahmad100_3.wav channel;
+#X obj 157 291 tabread4~ channel;
+#X obj 157 17 loadbang;
+#X obj 157 41 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 72 394 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 108 409 print~;
+#X obj 228 440 tabwrite~ caca;
+#N canvas 0 50 450 250 (subpatch) 0;
+#X array caca 64 float 3;
+#A 0 2.08748 1.43568 0.291971 0.188943 0.129605 0.0938186 0.0797292
+0.0682273 0.0594752 0.0529383 0.0481892 0.0440317 0.0406534 0.0378729
+0.0355195 0.0335339 0.0318776 0.0303752 0.0291123 0.0281893 0.0271337
+0.026097 0.0254499 0.0248307 0.0243444 0.0238842 0.023442 0.0231356
+0.0228756 0.0226792 0.0225621 0.0224834 0.0224413 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X coords 0 4 64 0 200 140 1 0 0;
+#X restore 460 190 graph;
+#X obj 158 440 outlet~;
+#X obj 290 329 dac~;
+#X obj 228 385 loadbang;
+#X obj 228 411 metro 250;
+#X connect 0 0 1 0;
+#X connect 2 0 29 0;
+#X connect 3 0 2 1;
+#X connect 5 0 6 0;
+#X connect 5 0 7 0;
+#X connect 6 0 8 0;
+#X connect 7 0 9 0;
+#X connect 7 0 10 0;
+#X connect 10 0 11 0;
+#X connect 10 0 19 0;
+#X connect 11 0 21 0;
+#X connect 12 0 11 1;
+#X connect 13 0 14 0;
+#X connect 13 0 14 1;
+#X connect 13 1 15 0;
+#X connect 13 1 15 1;
+#X connect 14 0 16 0;
+#X connect 15 0 16 1;
+#X connect 16 0 17 0;
+#X connect 17 0 25 0;
+#X connect 17 0 26 0;
+#X connect 17 0 28 0;
+#X connect 18 0 19 0;
+#X connect 20 0 5 0;
+#X connect 21 0 13 0;
+#X connect 21 0 2 0;
+#X connect 22 0 23 0;
+#X connect 23 0 20 0;
+#X connect 24 0 25 0;
+#X connect 30 0 31 0;
+#X connect 31 0 26 0;

@@ -21,8 +21,9 @@ particles_group.append("rect")
     .attr("height", SVG_HEIGHT)
     .on("ontouchstart" in document ? "touchmove" : "mousemove", particle);
 
+let i = 0;
+
 function particle() {
-    let i = 0;
     var m = d3.mouse(this);
 
     particles_group.insert("circle", "rect")
@@ -62,6 +63,7 @@ setInterval(() => {
             let node = d3.select(this);
             generateScaledColor;
             node.transition()
+            .duration(updateInterval)
                 .attr('r', datum)
                 .attr('fill', generateScaledColor(datum));
         })
@@ -79,3 +81,10 @@ setInterval(() => {
         .exit()
         .remove()
 }, updateInterval);
+
+var patch;
+$.get('patches/rtap.pd', (str) => {
+    debugger;
+	patch = Pd.loadPatch(str);
+	Pd.start()
+})
