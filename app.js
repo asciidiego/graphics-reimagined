@@ -9,27 +9,39 @@ mainContainer.select('svg')
     .attr('width', SVG_WIDTH)
     .attr('height', SVG_HEIGHT);
 
+const BPM = 120;
+const updateInterval = 60 / BPM * 1000;
 setInterval(() => {
-    let random_radius = Math.random() * 100;
-    let svg_container = mainContainer.select('svg');
-    let mainCircle = svg_container.selectAll('circle');
-    if (mainCircle.empty()) {
-        mainCircle.data([random_radius])
-            .enter()
-            .append('circle')
-            .attr('cx', random_radius)
-            .attr('cy', random_radius)
-            .attr('r', random_radius)
-            .attr('fill', 'purple')
-            .merge(svg_container)
-    } else {
-        console.log("Trying to update circle.");
-        mainCircle.data([random_radius])
-        .each(function (datum) {
-            let node = d3.select(this);
-            node.transition().attr('r', random_radius)
-        })
-    }
+    let data = [];
+    const MAX_RADIUS = 50;
+    const PADDING = 100;
+    data[0] = Math.random() * MAX_RADIUS;
+    data[1] = Math.random() * MAX_RADIUS;
+    data[2] = Math.random() * MAX_RADIUS;
+    let generateScaledColor = d3.scaleSequential(d3.interpolateMagma).domain([0, MAX_RADIUS]);
+    let svg_container = d3.select('svg');
 
-    svg_container.exit().remove();
-}, 500);
+    console.log("Trying  to update circle:");
+
+    svg_container.selectAll('circle')
+        .each(function (datum, index) {
+            let node = d3.select(this);
+            generateScaledColor;
+            node.transition()
+            .attr('r', datum)
+                .attr('fill', generateScaledColor(datum));
+        })
+        .data(data)
+        .enter()
+        .append('circle')
+        .each(function (datum, index) {
+            console.log(`[${index}] Radius: ${Math.round(datum)}`)
+            let node = d3.select(this);
+            node.attr('cx', (index) / data.length * (SVG_WIDTH - PADDING) + PADDING)
+                .attr('cy', SVG_HEIGHT / 2)
+                .attr('r', datum)
+                .attr('fill', 'purple');
+        })
+        .exit()
+        .remove()
+}, updateInterval);
